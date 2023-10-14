@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="EJBModule" default="build" basedir=".">
+<project name="EJBModuleForGlassfish" default="build" basedir=".">
     
     <!-- Propriétés -->
     <property name="src.dir" location="src"/>
@@ -7,6 +7,11 @@
     <property name="jar.dir" location="dist"/>
     <!-- Name of the jar file -->
     <property name="jar.file" value="TestEJB.jar" />
+
+    <!-- ASADMIN -->
+
+    <property name="glassfish.asadmin" location="/opt/glassfish7/bin/asadmin" />
+
 
     <!-- Définir le chemin de classe -->
     <path id="classpath">
@@ -37,10 +42,24 @@
             <!-- Inclure les fichiers de ressources si nécessaire -->
             <!-- <include name="**/*.xml"/> -->
         </jar>
+        
+        <echo message="Builded!"/>
+
     </target>
+
+    <!-- Tâche pour déployer le fichier JAR -->
+    <target name="deploy" depends="jar">
+
+        <exec executable="${glassfish.asadmin}">
+            <arg value="deploy"/>
+            <arg value="${jar.dir}/${jar.file}"/>
+        </exec>
+
+    </target>
+
     
     <!-- Tâche par défaut -->
-    <target name="build" depends="jar">
-        <echo message="Builded!"/>
+    <target name="build" depends="deploy">
+        <echo message="Builded and deployed !"/>
     </target>
 </project>
