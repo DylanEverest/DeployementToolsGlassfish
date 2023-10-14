@@ -8,6 +8,8 @@
     <!-- Name of the jar file -->
     <property name="jar.file" value="TestEJB.jar" />
 
+    <property name="jar.deployed" value="TestEJB" />
+
     <!-- ASADMIN -->
 
     <property name="glassfish.asadmin" location="/opt/glassfish7/bin/asadmin" />
@@ -47,14 +49,30 @@
 
     </target>
 
+        <!-- Tâche pour undeploy le fichier JAR -->
+        <target name="undeploy" depends="jar">
+
+            <exec executable="${glassfish.asadmin}">
+
+                <arg value="undeploy"/>
+
+                <arg value="${jar.deployed}"/>
+
+            </exec>
+
+            <echo message="Undeployed"/>
+
+        </target>
+
+
     <!-- Tâche pour déployer le fichier JAR -->
-    <target name="deploy" depends="jar">
+    <target name="deploy" depends="undeploy">
 
         <exec executable="${glassfish.asadmin}">
             <arg value="deploy"/>
             <arg value="${jar.dir}/${jar.file}"/>
         </exec>
-
+        <echo message="Deployed !"/>
     </target>
 
     
