@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="EJBModule" default="build" basedir=".">
+    
+    <!-- Propriétés -->
+    <property name="src.dir" location="src"/>
+    <property name="build.dir" location="bin"/>
+    <property name="jar.dir" location="dist"/>
+    <!-- Name of the jar file -->
+    <property name="jar.file" value="TestEJB.jar" />
+
+    <!-- Définir le chemin de classe -->
+    <path id="classpath">
+        <!-- Ajoutez ici le chemin vers les bibliothèques Java EE -->
+        <fileset dir="/home/dylan/Desktop/Java/jar">
+            <include name="jakarta.jakartaee-api-10.0.0.jar" />
+        </fileset>
+    </path>
+
+    <!-- Tâche de nettoyage -->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${jar.dir}"/>
+    </target>
+    
+    <!-- Tâche de compilation -->
+    <target name="compile" depends="clean">
+        <mkdir dir="${build.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="classpath"/>
+    </target>
+    
+    <!-- Tâche de création du JAR -->
+    <target name="jar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+            <jar destfile="${jar.dir}/${jar.file}" basedir="${build.dir}">
+            <!-- Inclure les fichiers de classe -->
+            <include name="**/*.class"/>
+            <!-- Inclure les fichiers de ressources si nécessaire -->
+            <!-- <include name="**/*.xml"/> -->
+        </jar>
+    </target>
+    
+    <!-- Tâche par défaut -->
+    <target name="build" depends="jar">
+        <echo message="Builded!"/>
+    </target>
+</project>
