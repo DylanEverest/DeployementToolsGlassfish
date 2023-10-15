@@ -10,6 +10,11 @@ public class Get {
     
     String targetUrl ;
     
+    public Get(String targetUrl) 
+    {
+        this.targetUrl = targetUrl;
+    }
+
     public Object getObject(Class<?> clazz) throws Exception
     {
         Client client = ClientBuilder.newClient();

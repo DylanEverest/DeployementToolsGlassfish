@@ -7,12 +7,16 @@ import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-public class Post 
+public class Post <T>
 {
 
     String targetUrl ;
     
-    public Object getObject(Object object , Class<?> clazz) throws Exception
+    public Post(String targetUrl) {
+        this.targetUrl = targetUrl;
+    }
+
+    public Object getObject(T object , Class<?> clazz) throws Exception
     {
         Client client = ClientBuilder.newClient();
 
