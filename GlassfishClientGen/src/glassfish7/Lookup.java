@@ -24,7 +24,7 @@ public class Lookup {
         setPort(port);
     }
 
-
+                            // ("JarName/ImplementsNameOnly", "EJBModule.IRemote")
     public Object getObject(String remoteimplementedWithSlash , String interfaceString) throws NamingException
     {
         Properties p = new Properties();
